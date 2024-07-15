@@ -11,7 +11,7 @@ const Sidebar = () => {
   return (
     <>
 
-    <div className={`${sidebar ? 'fixed' : 'fixed bg-red-200'} w-full transition-all duration-200`}>
+    <div className={`${sidebar ? '' : 'fixed bg-red-200'} w-full bg-red-200 transition-all duration-200`}>
       <div className='flex  justify-between p-5 px-6 items-center'>
         <div className='flex gap-2'>
             <button onClick={hanleOnclick}><RxHamburgerMenu className='text-xl md:hidden' /></button>
