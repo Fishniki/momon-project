@@ -1,11 +1,14 @@
-import React from 'react'
-import Sidebar from '../Navbar/Sidebar'
-
+// Home.js
+import Sidebar from '../Navbar/Sidebar';
+import Page1 from './Page1';
 
 export const Home = () => {
   return (
-      <div className='h-[3000px] bg-red-50'>
-        <Sidebar/>
-      </div>
-  )
+    <div>
+      <Sidebar props={null} />  
+      <Page1/>
+    </div>
+  );
 }
+
+export default Home;

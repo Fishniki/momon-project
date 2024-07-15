@@ -1,13 +1,14 @@
 // src/components/LoginPage.jsx
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const RegisterPage = () => {
 
    const [name, setName] = useState('')
    const [email, setEmail] = useState('')  
    const [password, setPassword] = useState('')  
+   const navigate = useNavigate()
 
    const handleRegister = async (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ export const RegisterPage = () => {
       setName('')
       setEmail('')
       setPassword('')
+      navigate("/login")
     }catch (error){
       console.error(error);
     }

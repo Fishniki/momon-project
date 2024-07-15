@@ -1,6 +1,5 @@
 // src/App.jsx
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Home } from './components/Home/Home';
 import { Login } from './components/auth/Login';
 import RegisterPage from './components/auth/Register';
