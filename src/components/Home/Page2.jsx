@@ -1,4 +1,3 @@
-import React from 'react'
 
 export const Page2 = () => {
   return (
@@ -9,6 +8,10 @@ export const Page2 = () => {
                     <div>
                         <p>Tanggal :</p>
                         <h1>Nominal</h1>
+                        <p>Jenis Transaksi :</p>
+                    </div>
+                    <div>
+                        
                     </div>
                 </li>
             </ul>
