@@ -45,7 +45,7 @@ export const RegisterPage = () => {
 
             <p className='text-[12px] sm:text-sm text-center mt-7'>Anda sudah memiliki akun 
               <span className='text-sky-600 font-semibold'>
-                <Link to='/login'> Login</Link>
+                <Link to='/'> Login</Link>
               </span></p>
           </form>
         </div>

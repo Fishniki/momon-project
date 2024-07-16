@@ -5,10 +5,11 @@ import { Page2 } from './Page2';
 
 export const Home = () => {
   return (
-    <div>
+    <div >
       <Sidebar props={null} />  
       <Page1/>
       <Page2/>
+
     </div>
   );
 }
