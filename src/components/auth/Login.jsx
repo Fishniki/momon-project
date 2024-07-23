@@ -12,11 +12,19 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:1234/login', {email, password})
+      const response = await axios.post('http://localhost:1234/login', {email, password}, {withCredentials: true})
+      localStorage.setItem('token', response.data.token)
       alert(`Anda login sebagai ${response.data.nama} dengan email ${response.data.email} dengan id ${response.data.id}`)
+
+      if (response.data.email === "admin@gmail.com"){
+        navigate("/Dashboard")
+      }else{
+        navigate("/Home")
+      }
+
       setEmail('')
       setPassword('')
-      navigate("/Home")
+      
       
     } catch (e) {
       console.error(e)

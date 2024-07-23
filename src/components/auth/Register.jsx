@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export const RegisterPage = () => {
 
-   const [name, setName] = useState('')
+   const [nama_lengkap, setName] = useState('')
    const [email, setEmail] = useState('')  
    const [password, setPassword] = useState('')  
    const navigate = useNavigate()
@@ -14,12 +14,12 @@ export const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:1234/register', { name, email, password });
+      const response = await axios.post('http://localhost:1234/register', { nama_lengkap, email, password });
       console.log(response.data);
       setName('')
       setEmail('')
       setPassword('')
-      navigate("/login")
+      navigate("/")
     }catch (error){
       console.error(error);
     }
@@ -32,7 +32,7 @@ export const RegisterPage = () => {
           <h1 className="text-center text-2xl mb-4">Register</h1>  
           <form className="flex flex-col" onSubmit={handleRegister} method='POST'>
             <label htmlFor="nama" className="mb-2">Nama</label>
-            <input type="text" name='name' placeholder='Masukan nama anda' id="name" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-lg mb-4 p-2 outline-none" />
+            <input type="text" name='nama_lengkap' placeholder='Masukan nama anda' id="nama_lengkap" value={nama_lengkap} onChange={(e) => setName(e.target.value)} className="border rounded-lg mb-4 p-2 outline-none" />
             <label htmlFor="email" className="mb-2">Email</label>
             <input type="email" name='email' placeholder='Masukan email anda' id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border rounded-lg mb-4 p-2 outline-none" />
             <label htmlFor="password" className="mb-2">Password</label>
