@@ -1,44 +1,25 @@
-// src/App.jsx
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { Home } from './components/Home/Dashboard';
-import { Login } from './components/auth/Login';
 import RegisterPage from './components/auth/Register';
-import { useEffect, useState } from 'react';
+import Login from './components/auth/Login';
+import ProtectedRoute from './components/Home/protectroute';
+import { HomeUser } from './components/Home/HomeUser';
+
+
+
 
 function App() {
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await axios.get('http://localhost:1234/api/check-auth', { withCredentials: true });
-        setIsAuthenticated(response.data.authenticated === "true");
-      } catch (error) {
-            setIsAuthenticated(false);
-      } finally {
-            setLoading(false);
-      }
-    }
-    checkAuth();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const isAuthenticated = !!localStorage.getItem('token'); // Check if token exists
 
   return (
-    <Router>
-      <div>
+    <div>
+      <Router>
         <Routes>
-          <Route path="/" element={<Login/>} />
-          <Route path='/register' element={<RegisterPage />} />
-          <Route path="/Dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
-          <Route path="/Home" element={isAuthenticated ? <Home /> : <Navigate to="/" />} />
+          <Route path="/" element={<Login/>}/>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/home" element={<ProtectedRoute element={HomeUser} />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 
