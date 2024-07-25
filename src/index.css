@@ -2,3 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+  }
+  
+  .card{
+    
+    @apply bg-blue-500 flex-1 rounded-lg relative overflow-hidden;
+  }
+  
+  .card::before{
+    content: '';
+    @apply bg-indigo-800 h-64 w-1/2 absolute rounded-r-full;
+  }
+  
+  .card::after{
+    content: '';
+    @apply bg-cyan-300 h-32 w-32 absolute -right-8 -top-8 rounded-full;
+  }
+  
+  .content-left::-webkit-scrollbar{
+    display: none;
+  }
