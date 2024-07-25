@@ -1,5 +1,7 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Navbar } from '../Navbar/Navbar';
 
 export const HomeUser = () => {
   const navigate = useNavigate();
@@ -9,10 +11,35 @@ export const HomeUser = () => {
     navigate('/'); // Navigate to the login page
   };
 
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const response = await axios.get('http://localhost:1234/api/user', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true, // Pastikan mengirim cookies
+          });
+          setUser(response.data);
+        } else {
+          navigate('/login');
+        }
+      } catch (e) {
+        console.log(`Ada error: ${e}`);
+        navigate('/login');
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
+
   return (
     <div>
-      Home
-      <button className='py-5 px-3 bg-red-300 rounded-md' onClick={handleLogout}>Logout</button>
+      <Navbar onClick={handleLogout} nama={user ? user.nama : 'Guest'} />
     </div>
   );
 };

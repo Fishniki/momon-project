@@ -2,12 +2,21 @@ import { useState } from 'react';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ keuangan, onClick }) => {
   const [sidebar, setSidebar] = useState(false);
   const handleOnClick = () => {
     setSidebar(!sidebar);
   };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+
+    localStorage.removeItem('token')
+    navigate('/');
+  }
 
   return (
     <>
@@ -31,6 +40,8 @@ const Sidebar = ({ keuangan, onClick }) => {
                 <div onClick={onClick} className='md:hidden'>
                   {keuangan ? <FaArrowUp className='text-xl text-green-500' /> : <FaArrowDown className='text-xl text-red-500' />}
                 </div>
+
+                <button onClick={handleLogout} className='px-6 py-2 bg-red-400 rounded-md'>Logout</button>
               </div>
             </div>
           </div>
