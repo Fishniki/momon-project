@@ -1,9 +1,8 @@
-import React from 'react'
-import { BiUser } from 'react-icons/bi'
-import { GrNotification } from 'react-icons/gr'
+import React, { useEffect, useState } from 'react'
 import profil from '../../../assets/image.png'
 import visa from '../../../assets/visa.png'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 
 export const RightConten = () => {
@@ -11,18 +10,46 @@ export const RightConten = () => {
     const navigate = useNavigate()
     const handleLogout = () => {
         localStorage.removeItem('token'); // Remove the token from localStorage
-        navigate('/'); // Navigate to the login page
+        navigate('/login'); // Navigate to the login page
       }; 
+
+  const [user, setUser] = useState(null)
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const token = localStorage.getItem('token');
+            if (token) {
+              const response = await axios.get('http://localhost:1234/api/user', {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                withCredentials: true, // Pastikan mengirim cookies
+              });
+              setUser(response.data);
+            } else {
+              navigate('/login');
+            }
+          } catch (e) {
+            console.log(`Ada error: ${e}`);
+            navigate('/login');
+          }
+        };
+    
+        fetchData();
+      }, [navigate]);
 
   return (
     <section className='w-64 bg-slate-200 rounded-tl-[70px] overflow-hidden'>
     <div className='pt-12 flex justify-end gap-3 items-center px-2'>
-        <GrNotification size={20}/>
-        <BiUser size={20}/>
-        <img src={profil}
-        alt="pp"
-        className='w-9 h-9 rounded-full object-cover'
-        />
+        <div className='flex items-center'>
+            <div className='text-xl font-sans font-semibold'>
+                {user ? user.nama : "Guest"}
+            </div>
+            <img src={profil}
+            alt="pp"
+            className='w-9 h-9 rounded-full object-cover'
+            />
+        </div>
         <button className='px-3 py-2 rounded-md bg-red-400 text-white font-semibold' onClick={handleLogout}>Logout</button>
     </div>
     <div className="card mt-9 container">
