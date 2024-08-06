@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../Navbar/Navbar';
 
 export const Home = () => {
-  const [keuangan, setKeuangan] = useState(true);
+  // const [keuangan, setKeuangan] = useState(true);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const handleSidebar = () => {
-    setKeuangan(!keuangan);
-  };
+  // const handleSidebar = () => {
+  //   setKeuangan(!keuangan);
+  // };
 
   const handleLogout = () => {
     localStorage.removeItem('token');

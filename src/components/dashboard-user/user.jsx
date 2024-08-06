@@ -4,7 +4,7 @@ import ContentLeft from './conten/left-content'
 
 
 
-export const DashboardAdmin = () => {
+function DashboardUser (){
   return (
     <div className='w-full min-h-screen bg-white flex flex-row'>
         <SidebarAdmin/>
@@ -13,3 +13,5 @@ export const DashboardAdmin = () => {
     </div>
   )
 }
+
+export default DashboardUser

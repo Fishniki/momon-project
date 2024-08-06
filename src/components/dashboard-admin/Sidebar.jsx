@@ -1,4 +1,3 @@
-import React from 'react'
 import { BiGridAlt } from 'react-icons/bi'
 import { FaCalculator } from 'react-icons/fa'
 import { IoIosContact, IoIosHome, IoMdSettings } from 'react-icons/io'
