@@ -13,6 +13,7 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:1234/login', { email, password }, { withCredentials: true });
       localStorage.setItem('token', response.data.token);
+
       
       const token = response.data.tokens
       console.log(token)
@@ -32,7 +33,7 @@ const Login = () => {
       setPassword('');
     } catch (e) {
       console.error(e);
-      alert('ada error bos');
+      alert("Terdapat Error");
     }
   };
 
