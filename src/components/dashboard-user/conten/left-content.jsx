@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   BiSearch,
   BiCreditCard,
@@ -8,6 +9,7 @@ import {
   BiTrash,
 } from "react-icons/bi";
 import { FiEdit2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import {
   SwipeableList,
   SwipeableListItem,
@@ -19,7 +21,31 @@ import "react-swipeable-list/dist/styles.css";
 
 export default function ContentLeft() {
 
-
+  const navigate = useNavigate()
+  const [user, setUser] = useState(null)
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const token = localStorage.getItem('token');
+            if (token) {
+              const response = await axios.get('http://localhost:1234/api/user', {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                withCredentials: true, // Pastikan mengirim cookies
+              });
+              setUser(response.data);
+            } else {
+              navigate('/login');
+            }
+          } catch (e) {
+            console.log(`Ada error: ${e}`);
+            navigate('/login');
+          }
+        };
+    
+        fetchData();
+      }, [navigate]);
 
   const trailingActions = () => (
     <TrailingActions>
@@ -48,7 +74,7 @@ export default function ContentLeft() {
         <input type={"text"} className="flex-1 outline-none" placeholder="Search" />
       </div>
 
-      <h3 className="text-xl text-indigo-700 my-8">Welcome back AR Shakir!</h3>
+      <h3 className="text-xl text-indigo-700 my-8">Welcome back {user ? user.nama : "Guest"}</h3>
 
       <div className="flex flex-row space-x-6">
         <Card
