@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import {
   BiSearch,
   BiCreditCard,
@@ -74,32 +75,32 @@ export default function ContentLeft() {
         <input type={"text"} className="flex-1 outline-none" placeholder="Search" />
       </div>
 
-      <h3 className="text-xl text-indigo-700 my-8">Welcome back {user ? user.nama : "Guest"}</h3>
+      <h3 className="text-xl text-indigo-700 my-8">Welcome {user ? user.nama : "Guest"}</h3>
 
       <div className="flex flex-row space-x-6">
         <Card
           bgColor={"bg-green-600"}
           txtColor={"text-green-600"}
           icon={<BiCreditCard size={25} />}
-          label={<span className="text-sm">Transfer via card number</span>}
+          label={<span className="text-sm">Gaji bersih Rp.10.000.000</span>}
         />
         <Card
           bgColor={"bg-indigo-600"}
           txtColor={"text-indigo-600"}
           icon={<BiDoughnutChart size={25} />}
-          label={<span className="text-sm">Transfer to another bank</span>}
+          label={<span className="text-sm">Total pengeluaran Rp.3000000</span>}
         />
         <Card
           bgColor={"bg-orange-600"}
           txtColor={"text-orange-600"}
           icon={<BiUser size={25} />}
-          label={<span className="text-sm">Transfer to the same bank</span>}
+          label={<span className="text-sm">Total Pemasukan Rp.3000000</span>}
         />
         <Card
           bgColor={"bg-teal-600"}
           txtColor={"text-teal-600"}
           icon={<BiHome size={25} />}
-          label={<span className="text-sm">Transfer to another bank</span>}
+          label={<span className="text-sm">Kondidi keuangan </span>}
         />
       </div>
 

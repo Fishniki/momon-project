@@ -25,7 +25,7 @@ const Login = () => {
       if (userName === "admin") {
         navigate('/dashboard')
       }else{
-        navigate('/home');
+        navigate('/');
       }
 
       setEmail('');

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import profil from '../../../assets/image.png'
 import visa from '../../../assets/visa.png'
 import { useNavigate } from 'react-router-dom'
