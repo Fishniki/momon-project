@@ -45,7 +45,7 @@ export default function ContentLeft() {
     <section className="content-left px-16 flex-1 pt-14 h-screen overflow-y-scroll ">
       <div className="border border-gray-300 rounded-lg w-full flex items-center py-3 px-3 ">
         <BiSearch className="mr-2" />
-        <input type={"text"} className="flex-1 " placeholder="Search" />
+        <input type={"text"} className="flex-1 outline-none" placeholder="Search" />
       </div>
 
       <h3 className="text-xl text-indigo-700 my-8">Welcome back AR Shakir!</h3>

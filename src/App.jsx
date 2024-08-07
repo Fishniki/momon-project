@@ -4,6 +4,7 @@ import Login from './components/auth/Login';
 import ProtectedRoute from './components/Home/protectroute';
 import { DashboardAdmin } from './components/dashboard-admin/admin';
 import DashboardUser from './components/dashboard-user/user';
+import HomePageUser from './components/HomeUser/HomePageUser';
 
 
 
@@ -15,7 +16,7 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path='/' element={<ProtectedRoute element={DashboardAdmin}/>}/>
+          <Route path='/' element={<HomePageUser/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<ProtectedRoute element={DashboardUser} />} />
