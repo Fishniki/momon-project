@@ -1,23 +1,18 @@
-import { useState } from 'react'
-import { BiGridAlt } from 'react-icons/bi'
-import { FaCalculator } from 'react-icons/fa'
-import { IoIosContact, IoIosHome, IoMdSettings } from 'react-icons/io'
+/* eslint-disable react/prop-types */
+import { BiGridAlt } from 'react-icons/bi';
+import { FaCalculator } from 'react-icons/fa';
+import { IoIosContact, IoMdAdd, IoMdSettings } from 'react-icons/io';
 
-export const SidebarAdmin = () => {
+export const SidebarAdmin = ({ button, value }) => {
     const menu = [
-        {name : "Home", icon: <IoIosHome />},
-        {name : "Account", icon: <BiGridAlt />},
-        {name : "Card", icon: <BiGridAlt />},
-        {name : "Contact", icon: <IoIosContact />},
-        {name : "Loan Calculator", icon: <FaCalculator/>},
-        {name : "Setting", icon: <IoMdSettings/>}
-    ]
+        { name: "Tambah", icon: <IoMdAdd className={`${value ? 'text-red-500' : ''} text-green-500 text-xl`} />, onclick: button },
+        { name: "Account", icon: <BiGridAlt /> },
+        { name: "Card", icon: <BiGridAlt /> },
+        { name: "Contact", icon: <IoIosContact /> },
+        { name: "Loan Calculator", icon: <FaCalculator /> },
+        { name: "Setting", icon: <IoMdSettings /> }
+    ];
 
-    // const schdulePayment = ['Pengeluaran', "Pemasukan"]
-
-    const[dropdowm, setDropdown] = useState(true)
-
-    
     return (
         <div className='h-screen border-r border-gray-200 w-64 px-9'>
             <div className='flex justify-center p-4 text-3xl'>
@@ -27,36 +22,34 @@ export const SidebarAdmin = () => {
                 <div>
                     <div className='mb-4'>Menu</div>
                     <ul>
-                        {menu.map((val, index) => {
-                            return <li className='mb-7 flex items-center gap-x-2' key={index}>
+                        {menu.map((val, index) => (
+                            <li
+                                className='mb-4 flex items-center gap-x-2 cursor-pointer hover:bg-slate-200 p-3'
+                                key={index}
+                                onClick={val.onclick} // Attach onclick handler here
+                            >
                                 <div className='text-xl font-thin'>{val.icon}</div>
                                 <div>{val.name}</div>
                             </li>
-                        })}
+                        ))}
                     </ul>
                 </div>
 
-                {/* <div>
-                    <div className='text-xl'>Schduled Payments</div>
-                    <select name="" id="" className='border-none outline-none w-full py-2 bg-sky-100 transition-transform duration-300 ease-in-out hover:bg-sky-200 focus:ring-2 focus:ring-sky-300'>
-                        {schdulePayment.map((val, index) => {
-                            return (
-                            <option key={index} value={val} className='py-2 w-full  transition-all duration-200'>
-                                {val}
-                            </option>
-                            )
-                        })}
-                    </select>
-                </div> */}
-
-                <div className='h-10 h- bg-red-50 cursor-pointer py-2'>
-                    <div className='text-center' onClick={() => setDropdown(!dropdowm)}>Schduled Payments</div>
-                    <ul className={`${dropdowm ? '-mt-96 hidden' : 'block mb-96 transition-all duration-200'}`}>
-                        <li className='py-2 w-full bg-red-200  text-center'>Pengeluaran</li>
-                        <li className='py-2 w-full bg-red-200  text-center'>Pemasukan</li>
-                    </ul>
-                </div>
+                <details className='outline-none gap-3'>
+                    <summary
+                        className='cursor-pointer mb-2'
+                        onClick={button} // Attach onclick handler here
+                    >
+                        Scheduled Payments
+                    </summary>
+                    <div className={`${value ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'} transition-all overflow-hidden`}>
+                        <ul>
+                            <li className='list-none p-2 w-full bg-red-200 mb-1 rounded-md'>Pengeluaran</li>
+                            <li className='list-none p-2 w-full bg-green-200 mb-1 rounded-md'>Pemasukan</li>
+                        </ul>
+                    </div>
+                </details>
             </div>
         </div>
-    )
+    );
 }
