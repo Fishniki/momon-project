@@ -12,6 +12,7 @@ import {
 import { FaCheck } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
+import { MdDelete, MdEdit } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import {
   SwipeableList,
@@ -119,18 +120,25 @@ export default function ContentLeft({ button, value }) {
           <div key={index} className="rounded-2xl bg-indigo-700 mb-4">
             <SwipeableList threshold={0.9} type={Type.IOS}>
               <SwipeableListItem trailingActions={trailingActions()}>
-                <div className="bg-white p-4 rounded-xl border border-gray-200 w-full flex items-center ">
-                  <img
-                    src={
-                      "https://images.pexels.com/photos/12467948/pexels-photo-12467948.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    }
-                    alt="img"
-                    className="w-8 h-8 rounded-full object-cover mr-3"
-                  />
-                  <div className="text-sm">
-                    <div className="text-gray-900">Push</div>
-                    <div>Waktu</div>
-                    <div className="text-gray-400 text-xs">1223415151561</div>
+                <div className="bg-white p-4 rounded-xl border border-gray-200 w-full flex items-center justify-between">
+                  <div className="flex items-center">
+                    <img
+                      src={
+                        "https://images.pexels.com/photos/12467948/pexels-photo-12467948.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                      }
+                      alt="img"
+                      className="w-8 h-8 rounded-full object-cover mr-3"
+                    />
+                    <div className="text-sm flex gap-4 items-center">
+                      <div className="text-red-500 font-semibold">Pengeluaran</div>
+                      <div className="text-[15px] font-semibold text-slate-600">Waktu</div>
+                      <div className="text-gray-400 text-[15px]">1223415151561</div>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="p-2 bg-yellow-300"><MdEdit size={25} /></div>
+                    <div className="p-2 bg-red-300"><MdDelete size={25}/></div>
                   </div>
                 </div>
               </SwipeableListItem>
