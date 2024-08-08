@@ -7,11 +7,7 @@ import axios from 'axios'
 
 export const RightConten = () => {
 
-    const navigate = useNavigate()
-    const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove the token from localStorage
-        navigate('/login'); // Navigate to the login page
-      }; 
+    const navigate = useNavigate() 
 
   const [user, setUser] = useState(null)
       useEffect(() => {
@@ -41,7 +37,7 @@ export const RightConten = () => {
   return (
     <section className='w-64 bg-slate-200 rounded-tl-[70px] overflow-hidden'>
     <div className='pt-12 flex justify-end gap-3 items-center px-2'>
-        <div className='flex items-center'>
+        <div className='flex items-center gap-2 mr-4'>
             <div className='text-xl font-sans font-semibold'>
                 {user ? user.nama : "Guest"}
             </div>
@@ -50,7 +46,6 @@ export const RightConten = () => {
             className='w-9 h-9 rounded-full object-cover'
             />
         </div>
-        <button className='px-3 py-2 rounded-md bg-red-400 text-white font-semibold' onClick={handleLogout}>Logout</button>
     </div>
     <div className="card mt-9 container">
         <div className="relative p-5 text-white">

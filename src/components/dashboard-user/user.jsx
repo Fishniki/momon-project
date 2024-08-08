@@ -15,7 +15,7 @@ function DashboardUser (){
   return (
     <div className='w-full min-h-screen bg-white flex flex-row'>
         <SidebarAdmin button={handleClick} value={button}/>
-        <ContentLeft/>
+        <ContentLeft button={handleClick} value={button}/>
         <RightConten/>
     </div>
   )
