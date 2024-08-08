@@ -128,28 +128,30 @@ export default function ContentLeft() {
         ))}
       </div>
 
-      <div className="w-64 rounded-md bg-sky-100 p-6 fixed top-0 left-0 justify-center items-center">
-      <form className="flex flex-col"  method='POST'>
-            <label htmlFor="nama" className="mb-2">Nominal</label>
-            <input type="text" name='nama_lengkap' placeholder='Masukan nominal' id="nama_lengkap"  className="border rounded-lg mb-4 p-2 outline-none" />
-            <label htmlFor="email" className="mb-2">Deskripsi</label>
-            <input type="text" name='email' placeholder='Masukan deskripsi' id="email" className="border rounded-lg mb-4 p-2 outline-none" />
-            <div className="w-full ">
-            <label htmlFor="password" className="mb-2">Type</label>
-              <select name="" id="" className="w-full p-3">
-                <option className="p-3 w-full" value="Pemasukan">Pemasukan</option>
-                <option className="p-3 w-full" value="Pengeluaran">Pengeluaran</option>
-              </select>
-            </div>
+        <div className="w-full h-full flex top-0 left-0 right-0 bottom-0 justify-center items-center absolute">
+          <div className="w-64 rounded-md bg-sky-100 p-6">
+          <form className="flex flex-col"  method='POST'>
+                <label htmlFor="nama" className="mb-2">Nominal</label>
+                <input type="text" name='nama_lengkap' placeholder='Masukan nominal' id="nama_lengkap"  className="border rounded-lg mb-4 p-2 outline-none" />
+                <label htmlFor="email" className="mb-2">Deskripsi</label>
+                <input type="text" name='email' placeholder='Masukan deskripsi' id="email" className="border rounded-lg mb-4 p-2 outline-none" />
+                <div className="w-full ">
+                <label htmlFor="password" className="mb-2">Type</label>
+                  <select name="" id="" className="w-full p-3">
+                    <option className="p-3 w-full" value="Pemasukan">Pemasukan</option>
+                    <option className="p-3 w-full" value="Pengeluaran">Pengeluaran</option>
+                  </select>
+                </div>
 
-            <div className='flex gap-2 justify-center mt-3'>
-              <button type="submit" className="w-[50px] inline-block py-2 bg-red-500
-              hover:bg-sky-500 font-semibold text-white rounded-md">Batal</button>
-              <button type="submit" className="w-[50px] inline-block py-2 bg-green-500
-              hover:bg-sky-500 font-semibold text-white rounded-md">Tambah</button>
-            </div>
-          </form>
-      </div>
+                <div className='flex gap-2 justify-center mt-3'>
+                  <button type="submit" className="w-[50px] inline-block py-2 bg-red-500
+                  hover:bg-sky-500 font-semibold text-white rounded-md">Batal</button>
+                  <button type="submit" className="w-[50px] inline-block py-2 bg-green-500
+                  hover:bg-sky-500 font-semibold text-white rounded-md">Tambah</button>
+                </div>
+              </form>
+          </div>
+        </div>
     </section>
   );
 }
