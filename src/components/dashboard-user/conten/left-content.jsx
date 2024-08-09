@@ -53,37 +53,35 @@ export default function ContentLeft({ button, value }) {
     fetchData();
   }, [navigate]);
 
-  const[jumlah, setJumlah] = useState()
+  const[amount, setAmount] = useState(5)
   const[deskripsi, setDeskripsi] = useState('')
   const[type, setType] = useState('')
 
   const handleCreate = async (e) => {
     e.preventDefault();
-
-   
-
+  
     try {
-      const token = localStorage.getItem("token")
-      const response = await axios.post('http://localhost:1234/api/create', { jumlah, deskripsi, type },
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        'http://localhost:1234/api/create',
+        { amount, deskripsi, type }, // Convert amount to number
         {
           headers: {
-            Authorization : `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
-          withCredentials: true
+          withCredentials: true,
         }
       );
       console.log(response.data);
-
-      alert("Data berhasil ditambahkan")
-      setJumlah('')
-      setDeskripsi('')
-      setType('')
-     
-    }catch (error){
-      alert("Terjadi kesalahan" + error.message)
+      alert("Data berhasil ditambahkan");
+      setAmount('');
+      setDeskripsi('');
+    } catch (error) {
+      alert("Terjadi kesalahan: " + error.message);
       console.error(error);
-    }   
-  }
+    }
+  };
+  
 
 
   const trailingActions = () => (
@@ -193,16 +191,16 @@ export default function ContentLeft({ button, value }) {
           onClick={(e) => e.stopPropagation()}
         >
           <form className="flex flex-col" onSubmit={handleCreate} method="POST">
-            <label htmlFor="nama" className="mb-2">
+            <label htmlFor="amount" className="mb-2">
               Nominal
             </label>
             <input
               type="number"
               name="amount"
-              value={jumlah} 
-              onChange={(e) => setJumlah(e.target.value)}
+              value={amount} 
+              onChange={(e) => setAmount(e.target.value)}
               placeholder="Masukan nominal"
-              id="jumlah"
+              id="amount"
               className="border rounded-lg mb-4 p-2 outline-none"
             />
             <label htmlFor="email" className="mb-2">
