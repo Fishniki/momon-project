@@ -40,6 +40,7 @@ export default function ContentLeft({ button, value }) {
             withCredentials: true, // Pastikan mengirim cookies
           });
           setUser(response.data);
+          console.log(`id nya adalah ${response.data.id}`)
         } else {
           navigate("/login");
         }
@@ -51,6 +52,39 @@ export default function ContentLeft({ button, value }) {
 
     fetchData();
   }, [navigate]);
+
+  const[jumlah, setJumlah] = useState()
+  const[deskripsi, setDeskripsi] = useState('')
+  const[type, setType] = useState('')
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+
+   
+
+    try {
+      const token = localStorage.getItem("token")
+      const response = await axios.post('http://localhost:1234/api/create', { jumlah, deskripsi, type },
+        {
+          headers: {
+            Authorization : `Bearer ${token}`,
+          },
+          withCredentials: true
+        }
+      );
+      console.log(response.data);
+
+      alert("Data berhasil ditambahkan")
+      setJumlah('')
+      setDeskripsi('')
+      setType('')
+     
+    }catch (error){
+      alert("Terjadi kesalahan" + error.message)
+      console.error(error);
+    }   
+  }
+
 
   const trailingActions = () => (
     <TrailingActions>
@@ -158,15 +192,17 @@ export default function ContentLeft({ button, value }) {
           className="w-64 rounded-md bg-slate-200 p-6 shadow-lg border"
           onClick={(e) => e.stopPropagation()}
         >
-          <form className="flex flex-col" method="POST">
+          <form className="flex flex-col" onSubmit={handleCreate} method="POST">
             <label htmlFor="nama" className="mb-2">
               Nominal
             </label>
             <input
-              type="text"
-              name="nama_lengkap"
+              type="number"
+              name="amount"
+              value={jumlah} 
+              onChange={(e) => setJumlah(e.target.value)}
               placeholder="Masukan nominal"
-              id="nama_lengkap"
+              id="jumlah"
               className="border rounded-lg mb-4 p-2 outline-none"
             />
             <label htmlFor="email" className="mb-2">
@@ -174,16 +210,18 @@ export default function ContentLeft({ button, value }) {
             </label>
             <input
               type="text"
-              name="email"
+              name="deskripsi"
+              value={deskripsi}
+              onChange={(e) => setDeskripsi(e.target.value)}
               placeholder="Masukan deskripsi"
-              id="email"
+              id="deskripsi"
               className="border rounded-lg mb-4 p-2 outline-none"
             />
             <div className="w-full ">
               <label htmlFor="password" className="mb-2">
                 Type
               </label>
-              <select name="" id="" className="w-full p-3">
+              <select name="type" id="type" value={type} onChange={(e) => setType(e.target.value)} className="w-full p-3">
                 <option className="p-3 w-full" value="Pemasukan">
                   Pemasukan
                 </option>
