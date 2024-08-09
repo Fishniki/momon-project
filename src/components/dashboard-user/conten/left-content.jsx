@@ -53,7 +53,7 @@ export default function ContentLeft({ button, value }) {
     fetchData();
   }, [navigate]);
 
-  const[amount, setAmount] = useState(5)
+  const[amount, setAmount] = useState(null)
   const[deskripsi, setDeskripsi] = useState('')
   const[type, setType] = useState('')
 
@@ -74,7 +74,7 @@ export default function ContentLeft({ button, value }) {
       );
       console.log(response.data);
       alert("Data berhasil ditambahkan");
-      setAmount();
+      setAmount(null);
       setDeskripsi('');
     } catch (error) {
       alert("Terjadi kesalahan: " + error.message);
