@@ -53,7 +53,7 @@ export default function ContentLeft({ button, value }) {
     fetchData();
   }, [navigate]);
 
-  const[amount, setAmount] = useState(null)
+  const[amount, setAmount] = useState('')
   const[deskripsi, setDeskripsi] = useState('')
   const[type, setType] = useState('')
 
@@ -64,7 +64,7 @@ export default function ContentLeft({ button, value }) {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         'http://localhost:1234/api/create',
-        { amount, deskripsi, type }, // Convert amount to number
+        { amount:Number(amount), deskripsi, type }, // Convert amount to number
         {
           headers: {
             Authorization: `Bearer ${token}`,
