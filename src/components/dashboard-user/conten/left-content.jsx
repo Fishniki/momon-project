@@ -12,7 +12,6 @@ import {
 import { FaCheck } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import { MdDelete, MdEdit } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import {
   SwipeableList,
@@ -27,6 +26,7 @@ import "react-swipeable-list/dist/styles.css";
 export default function ContentLeft({ button, value }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [data, setData] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +40,17 @@ export default function ContentLeft({ button, value }) {
             withCredentials: true, // Pastikan mengirim cookies
           });
           setUser(response.data);
-          console.log(`id nya adalah ${response.data.id}`)
+          const idUser = response.data.id
+          console.log(`id nya adalah ${idUser}`)
+
+          const readRespons = await axios.get(`http://localhost:1234/api/read/${idUser}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true
+          });
+          console.log(readRespons.data)        
+          setData(readRespons.data)
         } else {
           navigate("/login");
         }
@@ -74,34 +84,79 @@ export default function ContentLeft({ button, value }) {
       );
       console.log(response.data);
       alert("Data berhasil ditambahkan");
-      setAmount(null);
+      setAmount('');
       setDeskripsi('');
+      navigate("/")
     } catch (error) {
       alert("Terjadi kesalahan: " + error.message);
       console.error(error);
     }
   };
+
+  const handleDelete = async (ID) => {
+    try{
+      const token = localStorage.getItem("token")
+      const response = await axios.delete(`http://localhost:1234/api/delete/${ID}`, {
+        headers:{
+          Authorization: `Bearer${token}`
+        },
+        withCredentials: true
+      })
+      alert(`Data berhasil di hapus ${response.data.message}`)
+      setData(data.filter(item => item.id !== ID));
+
+    }catch(e) {
+      console.log(e)
+    } 
+  }
+
+  const [edit, setEdit] = useState(true)
+  const [currentCrud, setcurrentCrud] = useState(null)
+
+  const editHandler = (crud) => {
+    setEdit(false)
+    setcurrentCrud(crud)
+    setAmount(crud.amount)
+    setDeskripsi(crud.deskripsi)
+    setType(crud.type)
+  }
+
+  const handleUpdate = (e) => {
+    e.preventDefault()
+
+    try{
+      const token = localStorage.getItem("token")
+      const response = axios.put(`http://localhost:1234/api/update/${currentCrud.id}`, {
+        amount: Number(amount), deskripsi, type
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      },
+    )
+    console.log(response.data)
+    alert("Data telah diperbarui")
+    } catch (e) {
+      console.error(e)
+    }
+  }
   
-
-
-  const trailingActions = () => (
+  const trailingActions = (ID, item) => (
     <TrailingActions>
       <SwipeAction
         destructive={true}
-        onClick={() => console.info("swipe action triggered")}
+        onClick={() => handleDelete(ID)}
       >
         <div className="flex items-center px-4">
-          <BiTrash size={20} color="white" />
+          <BiTrash size={20} color="white" className="cursor-pointer" />
         </div>
       </SwipeAction>
-      <SwipeAction
-        destructive={true}
-        onClick={() => console.info("swipe action triggered")}
-      >
-        <div className="flex items-center px-4">
-          <FiEdit2 size={20} color="white" />
+      
+        <div className="flex items-center bg-res-100 px-4">
+          <FiEdit2  size={30} onClick={() => editHandler(item)} color="white" className="cursor-pointer"/>
         </div>
-      </SwipeAction>
     </TrailingActions>
   );
 
@@ -148,11 +203,11 @@ export default function ContentLeft({ button, value }) {
       </div>
 
       <div className="mt-20">
-        {Array.from(Array(2)).map((_, index) => (
+        {data.map((val, index) => (
           <div key={index} className="rounded-2xl bg-indigo-700 mb-4">
             <SwipeableList threshold={0.9} type={Type.IOS}>
-              <SwipeableListItem trailingActions={trailingActions()}>
-                <div className="bg-white p-4 rounded-xl border border-gray-200 w-full flex items-center justify-between">
+              <SwipeableListItem trailingActions={trailingActions(val.id, val)}>
+                <div id={val.id} className="bg-white p-4 rounded-xl border border-gray-200 w-full flex items-center justify-between">
                   <div className="flex items-center">
                     <img
                       src={
@@ -162,15 +217,10 @@ export default function ContentLeft({ button, value }) {
                       className="w-8 h-8 rounded-full object-cover mr-3"
                     />
                     <div className="text-sm flex gap-4 items-center">
-                      <div className="text-red-500 font-semibold">Pengeluaran</div>
-                      <div className="text-[15px] font-semibold text-slate-600">Waktu</div>
-                      <div className="text-gray-400 text-[15px]">1223415151561</div>
+                      <div className="text-red-500 font-semibold">{val.deskripsi}</div>
+                      <div className="text-[15px] font-semibold text-slate-600">{new Date(val.date).toLocaleString()}</div>
+                      <div className="text-gray-400 text-[15px]">{val.amount}</div>
                     </div>
-                  </div>
-
-                  <div className="flex">
-                    <div className="p-2 bg-yellow-300"><MdEdit size={25} /></div>
-                    <div className="p-2 bg-red-300"><MdDelete size={25}/></div>
                   </div>
                 </div>
               </SwipeableListItem>
@@ -183,14 +233,14 @@ export default function ContentLeft({ button, value }) {
       <div
         onClick={button}
         className={`w-full h-full ${
-          value ? "hidden" : "flex"
+          value && edit ? "hidden" : "flex"
         } top-0 left-0 right-0 bottom-0 justify-center items-center absolute`}
       >
         <div
           className="w-64 rounded-md bg-slate-200 p-6 shadow-lg border"
           onClick={(e) => e.stopPropagation()}
         >
-          <form className="flex flex-col" onSubmit={handleCreate} method="POST">
+          <form className="flex flex-col" onSubmit={edit ? handleCreate : handleUpdate} method={edit ? 'POST' : 'PUT'}>
             <label htmlFor="amount" className="mb-2">
               Nominal
             </label>
@@ -231,7 +281,7 @@ export default function ContentLeft({ button, value }) {
 
             <div className="flex gap-2 justify-center mt-3">
               <button
-                onClick={button}
+                onClick={() => setEdit(!edit)}
                 type="button"
                 className="px-3 py-2 bg-red-500 hover:bg-sky-500 font-semibold text-white rounded-md"
               >
