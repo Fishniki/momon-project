@@ -11,6 +11,7 @@ import {
 } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
+import { HiArrowDown, HiArrowUp } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import {
@@ -209,15 +210,11 @@ export default function ContentLeft({ button, value }) {
               <SwipeableListItem trailingActions={trailingActions(val.id, val)}>
                 <div id={val.id} className="bg-white p-4 rounded-xl border border-gray-200 w-full flex items-center justify-between">
                   <div className="flex items-center">
-                    <img
-                      src={
-                        "https://images.pexels.com/photos/12467948/pexels-photo-12467948.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      }
-                      alt="img"
-                      className="w-8 h-8 rounded-full object-cover mr-3"
-                    />
+                    <div className={`flex items-center p-2 mr-2 ${val.type === "Pengeluaran" ? 'bg-red-300' :  'bg-green-300'} bg-green-500 rounded-full`}>
+                        {val.type === "Pengeluaran" ? <HiArrowDown size={15} color="black" /> :  <HiArrowUp size={15} color="black" />}
+                    </div>
                     <div className="text-sm flex gap-4 items-center">
-                      <div className="text-red-500 font-semibold">{val.deskripsi}</div>
+                      <div className={`${val.type === "Pengeluaran" ? 'text-red-300' : 'text-green-300'} font-semibold`}>{val.deskripsi}</div>
                       <div className="text-[15px] font-semibold text-slate-600">{new Date(val.date).toLocaleString()}</div>
                       <div className="text-gray-400 text-[15px]">{val.amount}</div>
                     </div>
@@ -232,8 +229,7 @@ export default function ContentLeft({ button, value }) {
       {/* popup crud */}
       <div
         onClick={button}
-        className={`w-full h-full ${
-          value && edit ? "hidden" : "flex"
+        className={`w-full h-full ${value && edit ? "hidden" : "flex"
         } top-0 left-0 right-0 bottom-0 justify-center items-center absolute`}
       >
         <div
@@ -281,7 +277,7 @@ export default function ContentLeft({ button, value }) {
 
             <div className="flex gap-2 justify-center mt-3">
               <button
-                onClick={() => setEdit(!edit)}
+                onClick={(e) => e.stopPropagation()}
                 type="button"
                 className="px-3 py-2 bg-red-500 hover:bg-sky-500 font-semibold text-white rounded-md"
               >
